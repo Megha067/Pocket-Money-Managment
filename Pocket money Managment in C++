@@ -1,0 +1,245 @@
+#include<iostream>
+#include<string.h>
+#include<math.h>
+#include<dos.h>
+#include<iomanip>
+#include<windows.h>
+#include<conio.h>
+#include<FSTREAM>
+using namespace std;
+class wishes;
+class detail
+{
+	protected:
+        double m,rent,fees,fair;
+        double total,sum1,total2;
+        int d,k;
+	public:
+		void getdata()
+		{
+		 cout<<"\tEnter your pocket money:";
+         cin>>m;
+         cout<<"\n\tEnter your monthly house rent :";
+         cin>>rent;
+         cout<<"\n\tEnter your monthly mess fees :";
+         cin>>fees;
+         cout<<"\n\tEnter your up-down fair :";
+         cin>>fair;
+         }
+        double sum()
+         {
+        	sum1=rent +fees+fair;
+            total=m-sum1;
+            return total;
+		 }
+		void day()
+         {
+         	for(k=0;k<70;k++)
+         	{
+         		cout<<"*";
+			 }
+        	cout<<"\n\tEnter the total days of this month:";
+            cin>>d;
+		 }
+        double calc()
+        {
+        	total2=total/d;
+            return total2;
+		}
+};
+class wishes:public detail
+{
+	private:
+		double total3;
+		int  i,b,n,k,l;
+		double a[1000],sum2;
+        char s[][50];
+	public:
+
+     	void number()
+        {
+	        getdata();
+	        system("color 2e");
+			day();
+			for(k=0;k<70;k++)
+         	{
+         		cout<<"*";
+		    }
+		    system("color 5e");
+			cout<<"\n\tEnter the number of wishes you have this month :";
+            cin>>n;
+           	for(k=0;k<70;k++)
+         	{
+         		cout<<"*";
+		    }
+        }
+      	void calculation()
+		{
+			system("color 6e");
+			cout<<"\n";
+        	for(k=0;k<70;k++)
+         	{
+         		cout<<"*";
+		    }
+	     	cout<<"\n\t\tEnter your wishes and their amount\n";
+
+            for(i=0;i<n;i++)
+            {
+             	cout<<"\t\t\tYour wish "<<i+1<<" is:";
+                cin>>s[i];
+                cout<<"\t\t\tIt's amount is:";
+                cin>>a[i];
+                cout<<endl;
+            }
+           	system("color 7e");
+
+        	for(k=0;k<70;k++)
+         	{
+         		cout<<"$";
+		    }
+            cout<<"\n\tYou are left with :"<<sum()<<endl;
+         	for(k=0;k<70;k++)
+         	{
+         		cout<<"$";
+		    }
+		    cout<<"\n";
+		    system("color 3f");
+		   	for(k=0;k<70;k++)
+         	{
+         		cout<<"*";
+		    }
+            for(i=0;i<n;i++)
+            {
+               if(a[i]<=sum())
+               {
+                   cout<<"\n\tYou can buy :"<<s[i]<<endl;
+               }
+            }
+            for(l=0;l<2;l++)
+            {
+           	for(k=0;k<70;k++)
+         	{
+         		cout<<"*";
+		    }
+		    cout<<"\n";
+            }
+           for(i=0;i<n;i++)
+           {
+                if(a[i]<=sum())
+                {
+                    b=a[i]/d;
+                    total3=calc()-b;
+                    cout<<"\n\tIf you save "<<b<<" ruppess everyday then you can buy "<<s[i];
+                    cout<<"\n\t so you can use "<<total3<<" everyday for your other expanses\n";
+                }
+           }
+            for(l=0;l<2;l++)
+            {
+           	for(k=0;k<70;k++)
+         	{
+         		cout<<"*";
+		    }
+		    cout<<"\n";
+            }
+           cout<<"\n\tIf not this month try next month\n";
+            for(l=0;l<2;l++)
+            {
+           	for(k=0;k<70;k++)
+         	{
+         		cout<<"*";
+		    }
+		    cout<<"\n";
+            }
+        }
+};
+int main()
+{    	system("color 1B");
+	 cout << "  *     *   *******   *         *******   *******   *     *   *******  " << endl;
+     Sleep(150);
+     cout << "  *  *  *   *         *         *         *     *   **   **   *        " << endl;
+     Sleep(150);
+     cout << "  * * * *   *****     *         *         *     *   * * * *   *****    " << endl;
+     Sleep(150);
+     cout << "  **   **   *         *         *         *     *   *  *  *   *        " << endl;
+     Sleep(150);
+     cout << "  *     *   *******   *******   *******   *******   *     *   *******  " << endl ;
+     Sleep(150);
+     	wishes y;
+     	int s;
+   do{
+
+    cout<<"\n\t\t1.Add new wishes about this month";
+    cout<<"\n\t\t2.View old record"<<endl;
+    cout<<"\n\t\tchoose option:";
+    cin>>s;
+    switch(s)
+    {
+	case 1:
+		{
+		ofstream fout;
+		fout.open("record.txt",ios::in|ios::app|ios::binary);
+		{
+       	system("color 4e");
+        int i,j;
+        for(j=0;j<2;j++)
+        {
+	    for(i=0;i<70;i++)
+         {
+    	    cout<<"*";
+    	 }
+    	cout<<"\n";
+        }
+
+     	cout<<"**"<<setw(37)<<"WELCOME"<<setw(31)<<"**"<<endl;
+     	cout<<"**"<<setw(50)<<"YOUR WISH GIVES YOU THE REASON TO SAVE MONEY"<<setw(18)<<"**"<<endl;
+     	 for(j=0;j<2;j++)
+          {
+	        for(i=0;i<70;i++)
+            {
+    	        cout<<"*";
+    	    }
+    	    cout<<"\n";
+	      }
+
+           y.number();
+           fout.write((char*)&y,sizeof(y));
+ 	       system("color 5b");
+           y.calculation();
+            fout.write((char*)&y,sizeof(y));
+           cout<<"\n\tPrepared by:KEVAL BHUVA(19IT014) & MEGHA GORIYA(19IT045)"<<endl<<endl<<endl;
+    }
+        fout.close();
+        getch();
+
+       break;
+   }
+   case 2:
+   	{
+	 {
+        system("color 5b");
+   	  	ifstream fin;
+   	  	fin.open("record.txt",ios::out|ios::app|ios::binary);
+   	  	string ch;
+   	  	fin.read((char*)&y,sizeof(y));
+   	  	ch=fin.get();
+   	  	while(!fin.eof())
+   	  	{
+
+   	  		cout<<ch;
+   	  		ch=fin.get();
+	    }
+	    fin.close();
+	    getch();
+
+	  break;
+	 }
+    }
+	 default:
+	 	{
+	 	cout<<"\n\t\tenter valid option"<<endl;
+
+	 	break;
+	    }
+	 }}
+	 while(s==0);
+}
